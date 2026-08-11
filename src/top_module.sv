@@ -13,8 +13,7 @@ bit clk;
   reset=1;
   repeat(3) @(posedge clk);
   reset=0;
-  
-  repeat(200) @(posedge clk);
+   repeat(5) @(posedge clk);
   reset=1;
   repeat(1) @(posedge clk);
   reset=0;

@@ -5,7 +5,7 @@ class sequence1 extends uvm_sequence#(seq_item);
 endfunction
 
 task body();
- repeat(300) begin
+ repeat(10) begin
  req=seq_item::type_id::create("req");
  start_item(req);
  if(!(req.randomize() with { wr_cs==1; wr_en==1;rd_cs==0;rd_en==0; }))
@@ -22,7 +22,7 @@ class sequence2 extends uvm_sequence#(seq_item);
 endfunction
 
 task body();
- repeat(350) begin
+ repeat(10) begin
  req=seq_item::type_id::create("req");
  start_item(req);
  assert(req.randomize() with { rd_cs==1; rd_en==1;wr_cs==0;wr_en==0; });

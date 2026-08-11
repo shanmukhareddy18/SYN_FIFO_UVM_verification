@@ -102,8 +102,8 @@ task compare();
  else
   begin 
    `uvm_info("SCB","FAIL",UVM_NONE)
-   `uvm_info("SCB",$sformatf("FAIL_CNT=%d",fail_count),UVM_NONE)
   fail_count++; 
+   `uvm_info("SCB",$sformatf("FAIL_CNT=%d",fail_count),UVM_NONE)
  end
 endtask
 endclass
