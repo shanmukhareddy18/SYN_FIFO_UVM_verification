@@ -5,7 +5,7 @@ class sequence1 extends uvm_sequence#(seq_item);
 endfunction
 
 task body();
- repeat(10) begin
+ repeat(300) begin
  req=seq_item::type_id::create("req");
  start_item(req);
  if(!(req.randomize() with { wr_cs==1; wr_en==1;rd_cs==0;rd_en==0; }))

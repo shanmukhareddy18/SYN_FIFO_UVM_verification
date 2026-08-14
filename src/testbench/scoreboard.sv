@@ -67,26 +67,43 @@ task reference(seq_item tr);
  end
  else
   begin
- if(tr.wr_en && tr.wr_cs && !full)
-  begin
-    fifo[wr_p]=tr.data_in;
-    status_count++;
-    wr_p++;
+    if (tr.wr_cs && tr.wr_en && tr.rd_cs && tr.rd_en)
+     begin
+       if (!full && !empty) begin
+         data_out = fifo[rd_p];
+         fifo[wr_p]=tr.data_in;
+         rd_p++;
+          wr_p++;
+        end
+       else if (!full && empty) begin
+          fifo[wr_p]=tr.data_in;
+          wr_p++;
+          status_count++; end
+       else if (full && !empty) begin
+            data_out = fifo[rd_p];
+            rd_p++; 
+            status_count--; end      
+      end
+    else if(tr.wr_en && tr.wr_cs && !full)
+     begin
+       fifo[wr_p]=tr.data_in;
+       status_count++;
+       wr_p++;
+     end
+    else if(tr.rd_cs && tr.rd_en && !empty)
+     begin
+      data_out=fifo[rd_p];
+      status_count--;
+      rd_p++;
+     end
   end
- if(tr.rd_cs && tr.rd_en && !empty)
-  begin
-   data_out=fifo[rd_p];
-   status_count--;
-   rd_p++;
-  end
-
  if(status_count==0)
      empty=1;
  else if(status_count== (1<<`AW))
      full=1;
   else
     begin empty=0; full=0; end
- end
+
 `uvm_info("SCB EXP", $sformatf("data_out:%d | full:%b | empty:%0b | status_cnt=%d ",data_out, full, empty,status_count), UVM_NONE)
 
 endtask

@@ -28,10 +28,12 @@ task run_phase(uvm_phase phase);
  s3=sequence3::type_id::create("s3");
  s4=sequence4::type_id::create("s4");
 s1.start(ee.agnt_a.seqr);
- s2.start(ee.agnt_a.seqr);
+// s2.start(ee.agnt_a.seqr);
  //s1.start(ee.agnt_a.seqr);
  //s2.start(ee.agnt_a.seqr);
-// s3.start(ee.agnt_a.seqr);
+s3.start(ee.agnt_a.seqr);
+s1.start(ee.agnt_a.seqr);
+s3.start(ee.agnt_a.seqr);
 // s4.start(ee.agnt_a.seqr);
 phase.drop_objection(this);
 endtask
